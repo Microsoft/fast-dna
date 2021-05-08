@@ -2050,6 +2050,8 @@ export enum TextFieldType {
 export class Tooltip extends FASTElement {
     anchor: string;
     anchorElement: HTMLElement | null;
+    // Warning: (ae-incompatible-release-tags) The symbol "autoUpdateMode" is marked as @public, but its signature references "AutoUpdateMode" which is marked as @beta
+    autoUpdateMode: AutoUpdateMode;
     // (undocumented)
     connectedCallback(): void;
     // @internal

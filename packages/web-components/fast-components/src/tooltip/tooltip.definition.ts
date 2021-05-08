@@ -53,6 +53,16 @@ export const fastTooltipDefinition: WebComponentDefinition = {
                     default: undefined,
                     required: false,
                 },
+                {
+                    name: "auto-update-mode",
+                    title: "Auto update mode",
+                    description:
+                        "Defines whether the component automatically updates its position",
+                    type: DataType.string,
+                    values: [{ name: "anchor" }, { name: "auto" }],
+                    default: "auto",
+                    required: false,
+                },
             ],
             slots: [
                 {
