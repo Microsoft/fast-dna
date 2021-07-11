@@ -37,10 +37,6 @@ storybook-static
 #Ignore Mac .DS_Store
 .DS_Store
 
-#Ignore VSCode in Root
-/.vscode/
-/.vs/
-
 # tmp directories
 .tmp/
 temp/
