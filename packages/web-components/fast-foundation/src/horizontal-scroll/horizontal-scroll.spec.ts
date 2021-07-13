@@ -43,7 +43,7 @@ const cardSpace: number = cardWidth + (cardMargin * 2);
 const getXPosition = (elm: any): number | null => {
     if (!elm) return null;
 
-    return elm.scrollLeft;
+    return elm.shadowRoot?.querySelector(".scroll-view")?.scrollLeft;
 }
 
 /**
@@ -153,10 +153,10 @@ describe("HorinzontalScroll", () => {
 
             await connect();
             await DOM.nextUpdate();
+
             element.scrollToNext();
             element.scrollToNext();
-            element.scrollToNext();
-            element.scrollToNext();
+            await DOM.nextUpdate();
 
             await setTimeout(async () => {
                 expect(element.shadowRoot?.querySelector(".scroll-next")?.classList.contains("disabled")).to.equal(45)
@@ -281,7 +281,6 @@ describe("HorinzontalScroll", () => {
 
             await connect();
             await DOM.nextUpdate();
-            const scrollContent: any = element.shadowRoot?.querySelector(".content-container");
 
             element.scrollToNext();
             await setTimeout(async () => {
