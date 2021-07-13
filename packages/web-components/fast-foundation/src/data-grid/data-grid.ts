@@ -63,7 +63,7 @@ export interface ColumnDefinition {
      * When headerCellInternalFocusQueue is false this function is called when the cell is first focused
      * to immediately move focus to a cell element, for example a cell that is a checkbox could move
      * focus directly to the checkbox.
-     * When headerCellInternalFocusQueue is true this function is called when the user hits Enter or F2
+     * When ueuheaderCellInternalFocusQe is true this function is called when the user hits Enter or F2
      */
     headerCellFocusTargetCallback?: (cell: DataGridCell) => HTMLElement;
 
@@ -119,6 +119,31 @@ export class DataGrid extends FoundationElement {
             }${"1fr"}`;
         });
         return templateColumns;
+    }
+
+    /**
+     *
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: no-tabbing
+     */
+    @attr({ attribute: "no-tabbing", mode: "boolean" })
+    public noTabbing: boolean = false;
+    private noTabbingChanged(): void {
+        if (this.$fastController.isConnected) {
+            if (this.noTabbing) {
+                this.setAttribute("tabIndex", "-1");
+            } else {
+                this.setAttribute(
+                    "tabIndex",
+                    this.contains(document.activeElement) ||
+                        this === document.activeElement
+                        ? "-1"
+                        : "0"
+                );
+            }
+        }
     }
 
     /**
@@ -367,7 +392,7 @@ export class DataGrid extends FoundationElement {
      */
     public handleFocusOut(e: FocusEvent): void {
         if (e.relatedTarget === null || !this.contains(e.relatedTarget as Element)) {
-            this.setAttribute("tabIndex", "0");
+            this.setAttribute("tabIndex", this.noTabbing ? "-1" : "0");
         }
     }
 
